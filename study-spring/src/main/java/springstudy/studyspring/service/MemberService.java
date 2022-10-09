@@ -1,12 +1,13 @@
 package springstudy.studyspring.service;
 
+import org.springframework.stereotype.Service;
 import springstudy.studyspring.domain.Member;
 import springstudy.studyspring.repository.MemberRepository;
 import springstudy.studyspring.repository.MemoryMemberRepository;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class MemberService { // dependancy rejection
     private final MemberRepository memberRepository;
 
