@@ -2,6 +2,7 @@ package springstudy.studyspring.service;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import springstudy.studyspring.domain.Member;
 import springstudy.studyspring.repository.MemoryMemberRepository;
@@ -13,8 +14,16 @@ import static org.assertj.core.api.Assertions.*;
 
 class MemberServiceTest {
 
-    MemberService memberService = new MemberService();
-    MemoryMemberRepository memberRepository =new MemoryMemberRepository();
+    MemberService memberService;
+    MemoryMemberRepository memberRepository
+    // MemberService memberService = new MemberService();
+    // MemoryMemberRepository memberRepository =new MemoryMemberRepository(); // memberservice와 다른 repository임. 별로 안좋은 코드, 같은 repository를 사용해야됨.
+
+    @BeforeEach
+    public void beforeEach(){
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
 
     @AfterEach
     public void afterEach(){

@@ -7,9 +7,12 @@ import springstudy.studyspring.repository.MemoryMemberRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class MemberService {
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+public class MemberService { // dependancy rejection
+    private final MemberRepository memberRepository;
 
+    public MemberService(MemberRepository memberRepository){
+        this.memberRepository = memberRepository;
+    }
     /**
      * 회원가입
      */
