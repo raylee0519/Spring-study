@@ -9,5 +9,5 @@ class MystudySpringApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+	
 }
