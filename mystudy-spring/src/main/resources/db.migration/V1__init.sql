@@ -1,0 +1,1 @@
+INSERT INTO ARTICLE_ENTITY(name,content) VALUES("aa","aaa");
