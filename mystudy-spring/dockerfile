@@ -1,7 +1,13 @@
-FROM openjdk:17
-LABEL maintainer="author@javatodev.com"
-VOLUME /main-app
+# FROM openjdk:17
+# LABEL maintainer="author@javatodev.com"
+# VOLUME /main-app
 
-ADD build/libs/mystudy-spring-0.0.1-SNAPSHOT.jar app.jar
+# ADD build/libs/mystudy-spring-0.0.1-SNAPSHOT.jar app.jar
+# EXPOSE 8080
+# ENTRYPOINT ["java", "-jar","/app.jar"]
+
+FROM openjdk:17
+ARG JAR_FILE=./build/libs/*.jar
+COPY ${JAR_FILE} app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

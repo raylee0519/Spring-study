@@ -5,8 +5,8 @@ services:
     image: mysql
     environment:
       MYSQL_DATABASE: springstudy
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpwd
       MYSQL_ROOT_HOST: "root"
       MYSQL_ROOT_PASSWORD: rootpwd
     volumes:
@@ -19,8 +19,8 @@ services:
     build: .
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/springstudy
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: user
     depends_on:
       - database
     restart: always
