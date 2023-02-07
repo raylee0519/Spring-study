@@ -3,7 +3,7 @@ spring :
     mongodb :
       host : mongo_db
       port : 27017
-      database : java-to-dev-api
+      database : mongo_db
 
 flyway:
   enabled: true
