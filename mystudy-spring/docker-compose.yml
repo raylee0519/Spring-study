@@ -1,28 +1,31 @@
 version: "3.7"
 
 services:
-  database:
-    image: mysql
+  database-mysql:
+    container_name: database-mysql
+    image: mysql/mysql-server:8.0
+
     environment:
-      MYSQL_DATABASE: springstudy
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpwd
-      MYSQL_ROOT_HOST: "root"
-      MYSQL_ROOT_PASSWORD: rootpwd
+      MYSQL_ROOT_PASSWORD: "simple"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: "simple"
+      TZ: Asia/Seoul
+
     volumes:
-      - ./db/data:/var/lib/mysql
+      - ./mysql-init.d:/docker-entrypoint-initdb.d
+
     ports:
-      - 3306:3306
-    restart: always
+      - "3306:3306"
+
+    command:
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
 
   application:
     build: .
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/springstudy
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: user
-    depends_on:
-      - database
     restart: always
-    links:
-      - database
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - database-mysql
