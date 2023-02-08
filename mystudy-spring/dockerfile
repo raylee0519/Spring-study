@@ -6,12 +6,16 @@
 # EXPOSE 8080
 # ENTRYPOINT ["java", "-jar","/app.jar"]
 
-FROM openjdk:17-jdk
+#FROM openjdk:17-jdk
+#
+#ARG JAR_FILE="build/libs/mystudy-spring-*.jar"
+#
+#COPY ${JAR_FILE} app.jar
+#
+#ENV    PROFILE dev
+#
+#ENTRYPOINT ["java", "-Dspring.profiles.active=${PROFILE}", "-jar","/app.jar"]
 
-ARG JAR_FILE="build/libs/mystudy-spring-*.jar"
-
-COPY ${JAR_FILE} app.jar
-
-ENV    PROFILE dev
-
-ENTRYPOINT ["java", "-Dspring.profiles.active=${PROFILE}", "-jar","/app.jar"]
+FROM openjdk:17
+ADD build/libs/mystudy-spring-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]

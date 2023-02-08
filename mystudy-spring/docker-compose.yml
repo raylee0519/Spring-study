@@ -1,31 +1,27 @@
-version: "3.7"
-
+version: "3"
 services:
-  database-mysql:
-    container_name: database-mysql
-    image: mysql/mysql-server:8.0
-
+  database:
+    image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "simple"
+      MYSQL_DATABASE: userdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpwd
       MYSQL_ROOT_HOST: "%"
-      MYSQL_DATABASE: "simple"
-      TZ: Asia/Seoul
-
+      MYSQL_ROOT_PASSWORD: rootpwd
     volumes:
-      - ./mysql-init.d:/docker-entrypoint-initdb.d
-
+      - ./db/data:/var/lib/mysql
     ports:
-      - "3306:3306"
-
-    command:
-      - "--character-set-server=utf8mb4"
-      - "--collation-server=utf8mb4_unicode_ci"
+      - 3306:3306
+    restart: always
 
   application:
     build: .
-    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/userdb
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: userpwd
     ports:
-      - "8080:8080"
-
+      - 8080:8080
+    restart: always
     depends_on:
-      - database-mysql
+      - database
