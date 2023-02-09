@@ -1,4 +1,8 @@
-version: "3"
+version: "3.7"
+networks:
+  springboot-mysql-net:
+    driver: bridge
+
 services:
   database:
     image: mysql
@@ -12,6 +16,8 @@ services:
       - ./db/data:/var/lib/mysql
     ports:
       - 3306:3306
+    networks:
+      - springboot-mysql-net
     restart: always
 
   application:
@@ -25,3 +31,5 @@ services:
     restart: always
     depends_on:
       - database
+    networks:
+      - springboot-mysql-net
