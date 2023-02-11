@@ -1,7 +1,4 @@
 version: "3.7"
-networks:
-  springboot-mysql-net:
-    driver: bridge
 
 services:
   database:
@@ -16,17 +13,16 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     volumes:
-      - ./db/data:/var/lib/mysql
+      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
     ports:
-      - 3306:3306
-    networks:
-      - springboot-mysql-net
+      - 13306:3306
     restart: always
 
   application:
     build: .
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/userdb
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:13306/userdb?serverTimezone=UTC&characterEncoding=UTF-8
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: userpwd
     ports:
@@ -34,5 +30,3 @@ services:
     restart: always
     depends_on:
       - database
-    networks:
-      - springboot-mysql-net
