@@ -1,5 +1,9 @@
 version: "3.7"
 
+networks:
+  our_net:
+    driver: bridge
+
 services:
   database:
     image: mysql
@@ -17,6 +21,8 @@ services:
       - ./db/mysql/init:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
+    networks:
+      - our_net
     restart: always
 
   application:
@@ -27,6 +33,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: userpwd
     ports:
       - 8080:8080
-    restart: always
     depends_on:
       - database
+    networks:
+      - our_net
+    restart: always

@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "TestData")
+@Table(name = "test_data")
 public class TestData extends BaseTimeEntity {
 
     @Id
